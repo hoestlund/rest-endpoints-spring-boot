@@ -46,6 +46,14 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
+
+    <!--My own imports-->
+    <!--Country codes-->
+    <dependency>
+      <groupId>com.neovisionaries</groupId>
+      <artifactId>nv-i18n</artifactId>
+      <version>1.29</version>
+    </dependency>
   </dependencies>
 
   <build>
