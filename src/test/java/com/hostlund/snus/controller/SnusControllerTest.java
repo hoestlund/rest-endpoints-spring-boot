@@ -1,4 +1,4 @@
-package com.hostlund.snus.services;
+package com.hostlund.snus.controller;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,14 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SnusServiceImplTest {
+class SnusControllerTest {
 
   @Autowired
-  SnusService service;
+  SnusController controller;
 
   @Test
   void getSnusById() {
-    Snus snus = service.getSnusById(UUID.randomUUID());
+    Snus snus = controller.getSnusById(UUID.randomUUID());
     assertNotNull(snus);
     System.out.println(snus);
   }
