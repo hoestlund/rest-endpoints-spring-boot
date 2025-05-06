@@ -1,6 +1,5 @@
 package com.hostlund.snus.services;
 
-import com.hostlund.snus.model.Flavour;
 import com.hostlund.snus.model.Snus;
 import java.time.LocalDateTime;
 import java.util.UUID;
