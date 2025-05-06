@@ -2,20 +2,51 @@ package com.hostlund.snus.services;
 
 import com.hostlund.snus.model.Snus;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SnusServiceImpl implements SnusService {
 
-  @Override
-  public Snus getSnusById(UUID id) {
-    return Snus.builder()
-        .id(id)
-        .name("Pine")
+  private Map<UUID, Snus> snusMap;
+
+  public SnusServiceImpl() {
+    this.snusMap = new HashMap<>();
+
+    Snus pine = Snus.builder().id(UUID.randomUUID()).name("Pine")
         .description("Wood series. Pine needles, nordic cedar, delicate spices and mint")
         .createdDate(LocalDateTime.now())
-        //.flavour(new Flavour("Pine"))
+        .updatedDate(LocalDateTime.now())
+        //.flavour(new Flavour("Pine")) TODO investigate lazy fetching again. Make complete object
         .build();
+
+    Snus veryBerry = Snus.builder().id(UUID.randomUUID()).name("Apres N°7 Very Berry")
+        .description("Long release wild berry and raspberry")
+        .createdDate(LocalDateTime.now())
+        .updatedDate(LocalDateTime.now()).build();
+
+    Snus appletini = Snus.builder().id(UUID.randomUUID()).name("Apres N°6 Appletini")
+        .description("Refreshing green apple")
+        .createdDate(LocalDateTime.now())
+        .updatedDate(LocalDateTime.now())
+        .build();
+
+    snusMap.put(pine.getId(),pine);
+    snusMap.put(veryBerry.getId(),veryBerry);
+    snusMap.put(appletini.getId(),appletini);
+  }
+
+  @Override
+  public List<Snus> listSnus() {
+    return new ArrayList<>((snusMap.values()));
+  }
+
+  @Override
+  public Snus getSnusById(UUID id) {
+    return snusMap.get(id);
   }
 }

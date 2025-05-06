@@ -3,6 +3,7 @@ package com.hostlund.snus.controller;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.hostlund.snus.model.Snus;
+import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,9 @@ class SnusControllerTest {
   SnusController controller;
 
   @Test
-  void getSnusById() {
-    Snus snus = controller.getSnusById(UUID.randomUUID());
+  void getSnus() {
+    List<Snus> snus = controller.getSnus();
     assertNotNull(snus);
-    System.out.println(snus);
+    assertNotEquals(0, snus.size());
   }
 }
