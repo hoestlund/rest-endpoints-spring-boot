@@ -24,6 +24,11 @@ public class SnusController {
 
   @RequestMapping(method = RequestMethod.GET)
   public List<Snus> getSnus() {
+    System.out.println("!!!!!!!!!!!! Printing flavour");
+    System.out.println(getSnusById(UUID.fromString("0c0b2f51-6c08-457a-b4b7-c2ceafb41159")));
+
+
+
     return snusService.listSnus();
   }
 
