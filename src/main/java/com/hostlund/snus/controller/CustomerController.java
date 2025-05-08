@@ -1,7 +1,6 @@
 package com.hostlund.snus.controller;
 
 import com.hostlund.snus.model.Customer;
-import com.hostlund.snus.model.Snus;
 import com.hostlund.snus.services.CustomerService;
 import java.util.List;
 import java.util.UUID;
