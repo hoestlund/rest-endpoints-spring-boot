@@ -24,10 +24,18 @@ public class SnusController {
 
   @RequestMapping(method = RequestMethod.GET)
   public List<Snus> getSnus() {
+
+    List<Snus> snusList = snusService.listSnus();
+    //this is not reliable. Didn't think about the fact that I am
+    // using Map in the caller
+    // Snus pine = snusList.get(2);
+
+    Snus pine = snusList.stream().filter(s -> "Pine".equals(s.getName())).toList().getFirst();
+
+    System.out.println(
+        pine); //here I see the string of my flavour to string flavour=Flavour(name=Pine)
     System.out.println("!!!!!!!!!!!! Printing flavour");
-    System.out.println(getSnusById(UUID.fromString("0c0b2f51-6c08-457a-b4b7-c2ceafb41159")));
-
-
+    System.out.println(pine.getFlavour()); //here it is null
 
     return snusService.listSnus();
   }

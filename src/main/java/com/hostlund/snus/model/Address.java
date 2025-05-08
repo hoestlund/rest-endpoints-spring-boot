@@ -1,8 +1,10 @@
 package com.hostlund.snus.model;
 
 import com.neovisionaries.i18n.CountryCode;
+import lombok.Builder;
 import lombok.Data;
 
+@Builder
 @Data
 public class Address {
 
