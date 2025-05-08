@@ -1,14 +1,20 @@
 package com.hostlund.snus.services;
 
+import com.hostlund.snus.model.Address;
+import com.hostlund.snus.model.Flavour;
+import com.hostlund.snus.model.Manufacturer;
 import com.hostlund.snus.model.Snus;
+import com.neovisionaries.i18n.CountryCode;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class SnusServiceImpl implements SnusService {
 
@@ -21,7 +27,16 @@ public class SnusServiceImpl implements SnusService {
         .description("Wood series. Pine needles, nordic cedar, delicate spices and mint")
         .createdDate(LocalDateTime.now())
         .updatedDate(LocalDateTime.now())
-        //.flavour(new Flavour("Pine")) TODO investigate lazy fetching again. Make complete object
+        .flavour(new Flavour("Pine flavour"))
+        .manufacturer(
+            Manufacturer.builder()
+                .name("NOTO")
+                .address(Address.builder()
+                    .firstLine("Bug Street 123")
+                    .city("Berlin")
+                    .cc(CountryCode.DE)
+                    .build())
+                .build())
         .build();
 
     Snus veryBerry = Snus.builder().id(UUID.randomUUID()).name("Apres N°7 Very Berry")
