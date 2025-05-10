@@ -1,5 +1,6 @@
 package com.hostlund.snus.services;
 
+import com.hostlund.snus.dto.SnusDTO;
 import com.hostlund.snus.model.Address;
 import com.hostlund.snus.model.Flavour;
 import com.hostlund.snus.model.Manufacturer;
@@ -53,6 +54,23 @@ public class SnusServiceImpl implements SnusService {
     snusMap.put(pine.getId(),pine);
     snusMap.put(veryBerry.getId(),veryBerry);
     snusMap.put(appletini.getId(),appletini);
+  }
+  @Override
+  public Snus saveNewSnus(SnusDTO snus) {
+    Snus newSnus =
+        Snus.builder()
+            .id(UUID.randomUUID())
+            .version(snus.version())
+            .name(snus.name())
+            .flavour(snus.flavour())
+            .manufacturer(snus.manufacturer())
+            .nicotineMilligramsPerGram(snus.nicotineMilligramsPerGram())
+            .description(snus.description())
+            .createdDate(LocalDateTime.now())
+            .updatedDate(LocalDateTime.now())
+        .build();
+    snusMap.put(newSnus.getId(),newSnus);
+    return newSnus;
   }
 
   @Override
