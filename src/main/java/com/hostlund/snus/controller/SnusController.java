@@ -26,7 +26,7 @@ public class SnusController {
 
   private final SnusService snusService;
 
-  @PostMapping(consumes = "application/json")
+  @PostMapping
   public ResponseEntity handlePost(@RequestBody SnusDTO snus) {
     Snus savedSnus = snusService.saveNewSnus(snus);
     return new ResponseEntity(HttpStatus.CREATED);
