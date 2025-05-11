@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
-  private Map<UUID,Customer> customerMap;
+  private final Map<UUID,Customer> customerMap;
 
   public CustomerServiceImpl() {
     this.customerMap = new HashMap<>();
