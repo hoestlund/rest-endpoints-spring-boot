@@ -51,10 +51,11 @@ public class SnusServiceImpl implements SnusService {
         .updatedDate(LocalDateTime.now())
         .build();
 
-    snusMap.put(pine.getId(),pine);
-    snusMap.put(veryBerry.getId(),veryBerry);
-    snusMap.put(appletini.getId(),appletini);
+    snusMap.put(pine.getId(), pine);
+    snusMap.put(veryBerry.getId(), veryBerry);
+    snusMap.put(appletini.getId(), appletini);
   }
+
   @Override
   public Snus saveNewSnus(SnusDTO snus) {
     Snus newSnus =
@@ -68,8 +69,8 @@ public class SnusServiceImpl implements SnusService {
             .description(snus.description())
             .createdDate(LocalDateTime.now())
             .updatedDate(LocalDateTime.now())
-        .build();
-    snusMap.put(newSnus.getId(),newSnus);
+            .build();
+    snusMap.put(newSnus.getId(), newSnus);
     return newSnus;
   }
 
