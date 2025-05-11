@@ -1,12 +1,11 @@
 package com.hostlund.snus.controller;
 
+import static com.hostlund.snus.services.SnusService.DTOToSnus;
+
 import com.hostlund.snus.dto.SnusDTO;
-import com.hostlund.snus.model.Address;
-import com.hostlund.snus.model.Flavour;
-import com.hostlund.snus.model.Manufacturer;
 import com.hostlund.snus.model.Snus;
 import com.hostlund.snus.services.SnusService;
-import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
@@ -27,9 +26,9 @@ public class SnusController {
   private final SnusService snusService;
 
   @PostMapping
-  public ResponseEntity handlePost(@RequestBody SnusDTO snus) {
-    Snus savedSnus = snusService.saveNewSnus(snus);
-    return new ResponseEntity(HttpStatus.CREATED);
+  public ResponseEntity<Snus> handlePost(@RequestBody SnusDTO snus) {
+    Snus entity = snusService.saveSnus(DTOToSnus(snus));
+    return new ResponseEntity<>(entity, HttpStatus.CREATED);
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -40,14 +39,6 @@ public class SnusController {
   @RequestMapping(method = RequestMethod.GET)
   public List<Snus> getSnus() {
     return snusService.listSnus();
-  }
-
-  @RequestMapping(value = "/dto", method = RequestMethod.GET)
-  public SnusDTO testSnusDTO() {
-    return new SnusDTO(2, "DTO snus", "Best Tasting", new Flavour("Spicy"),
-        BigDecimal.valueOf(2.50),
-        Manufacturer.builder().name("A manufacturer").address(Address.builder().firstLine("The "
-            + "Streets").city("Berlin").build()).build(), 20);
   }
 
 }

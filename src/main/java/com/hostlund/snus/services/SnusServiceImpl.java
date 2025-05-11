@@ -57,21 +57,9 @@ public class SnusServiceImpl implements SnusService {
   }
 
   @Override
-  public Snus saveNewSnus(SnusDTO snus) {
-    Snus newSnus =
-        Snus.builder()
-            .id(UUID.randomUUID())
-            .version(snus.version())
-            .name(snus.name())
-            .flavour(snus.flavour())
-            .manufacturer(snus.manufacturer())
-            .nicotineMilligramsPerGram(snus.nicotineMilligramsPerGram())
-            .description(snus.description())
-            .createdDate(LocalDateTime.now())
-            .updatedDate(LocalDateTime.now())
-            .build();
-    snusMap.put(newSnus.getId(), newSnus);
-    return newSnus;
+  public Snus saveSnus(Snus snus) {
+    snusMap.put(snus.getId(), snus);
+    return snus;
   }
 
   @Override
