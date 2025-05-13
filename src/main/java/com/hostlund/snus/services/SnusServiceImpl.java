@@ -35,7 +35,7 @@ public class SnusServiceImpl implements SnusService {
                 .address(Address.builder()
                     .firstLine("Bug Street 123")
                     .city("Berlin")
-                    .cc(CountryCode.DE)
+                    .country(CountryCode.DE)
                     .build())
                 .build())
         .build();

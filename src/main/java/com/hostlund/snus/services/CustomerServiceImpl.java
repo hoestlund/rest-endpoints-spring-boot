@@ -27,7 +27,7 @@ public class CustomerServiceImpl implements CustomerService {
             .firstLine("Puttbusser Str")
             .houseNumber(8)
             .city("Berlin")
-            .cc(CountryCode.DE)
+            .country(CountryCode.DE)
             .build())
         .build();
 
@@ -40,7 +40,7 @@ public class CustomerServiceImpl implements CustomerService {
             .firstLine("Högsbogatan")
             .houseNumber(23)
             .city("Gothenburg")
-            .cc(CountryCode.SE)
+            .country(CountryCode.SE)
             .build())
         .build();
 
@@ -57,4 +57,12 @@ public class CustomerServiceImpl implements CustomerService {
   public List<Customer> getCustomers() {
     return new ArrayList<>(customerMap.values());
   }
+
+  @Override
+  public Customer saveCustomer(Customer customer) {
+    customerMap.put(customer.getId(),customer);
+    return customer;
+  }
+
+
 }
