@@ -6,6 +6,7 @@ import com.hostlund.snus.dto.SnusDTO;
 import com.hostlund.snus.model.Snus;
 import com.hostlund.snus.services.SnusService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,12 +15,15 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseEntity.HeadersBuilder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @AllArgsConstructor
@@ -39,14 +43,25 @@ public class SnusController {
     return ResponseEntity.created(location).build();
   }
 
-  @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+  @GetMapping(value = "/{id}")
   public Snus getSnusById(@PathVariable("id") UUID id) {
     return snusService.getSnusById(id);
   }
 
-  @RequestMapping(method = RequestMethod.GET)
+  @GetMapping
   public List<Snus> getSnus() {
     return snusService.listSnus();
+  }
+
+  @PutMapping(value = "/{id}")
+  public ResponseEntity updateSnus(@PathVariable UUID id, @RequestBody @NotNull SnusDTO snus) {
+    try {
+      //Change the update fields, version etc.
+      snusService.updateSnus(id, DTOToSnus(snus));
+    } catch (ResponseStatusException e) {
+      return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+    return new ResponseEntity(HttpStatus.OK);
   }
 
 }

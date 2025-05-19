@@ -34,6 +34,8 @@ public interface SnusService {
         .build();
   }
 
+  void updateSnus(UUID id, Snus snus);
+
   Snus saveSnus(Snus snus);
 
   Snus getSnusById(UUID id);

@@ -1,6 +1,5 @@
 package com.hostlund.snus.services;
 
-import com.hostlund.snus.dto.SnusDTO;
 import com.hostlund.snus.model.Address;
 import com.hostlund.snus.model.Flavour;
 import com.hostlund.snus.model.Manufacturer;
@@ -13,7 +12,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Slf4j
 @Service
@@ -54,6 +55,16 @@ public class SnusServiceImpl implements SnusService {
     snusMap.put(pine.getId(), pine);
     snusMap.put(veryBerry.getId(), veryBerry);
     snusMap.put(appletini.getId(), appletini);
+  }
+
+  @Override
+  public void updateSnus(UUID id, Snus snus) {
+    if (!snusMap.containsKey(id)) {
+      // Not sure if it is good practive to deal with HTTP codes in the service but IllegalArgument didn't seem that accurate and I don't want to have a custom exception (yet)
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    }
+
+    snusMap.put(id, snus);
   }
 
   @Override
