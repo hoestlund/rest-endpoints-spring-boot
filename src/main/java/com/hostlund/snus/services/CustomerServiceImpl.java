@@ -64,5 +64,13 @@ public class CustomerServiceImpl implements CustomerService {
     return customer;
   }
 
+    @Override
+    public void updateCustomer(UUID id, Customer customer) {
+        if(!customerMap.containsKey(id)){
+          throw new IllegalArgumentException("Customer with id " + id + " does not exist");
+        }
+        customerMap.put(id,customer);
+    }
+
 
 }

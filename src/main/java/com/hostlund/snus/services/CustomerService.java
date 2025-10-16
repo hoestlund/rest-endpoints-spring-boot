@@ -4,6 +4,7 @@ import com.hostlund.snus.dto.AddressDTO;
 import com.hostlund.snus.dto.CustomerDTO;
 import com.hostlund.snus.model.Address;
 import com.hostlund.snus.model.Customer;
+import com.hostlund.snus.model.Snus;
 import java.util.List;
 import java.util.UUID;
 
@@ -47,5 +48,7 @@ public interface CustomerService {
   List<Customer> getCustomers();
 
   Customer saveCustomer(Customer customer);
+
+  void updateCustomer(UUID id, Customer customer);
 
 }
