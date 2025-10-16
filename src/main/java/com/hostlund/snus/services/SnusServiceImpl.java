@@ -79,6 +79,11 @@ public class SnusServiceImpl implements SnusService {
   }
 
   @Override
+  public void deleteSnusById(UUID id) {
+    snusMap.remove(id);
+  }
+
+  @Override
   public Snus getSnusById(UUID id) {
     return snusMap.get(id);
   }

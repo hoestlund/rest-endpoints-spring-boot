@@ -42,4 +42,5 @@ public interface SnusService {
 
   List<Snus> listSnus();
 
+  void deleteSnusById(UUID id);
 }
