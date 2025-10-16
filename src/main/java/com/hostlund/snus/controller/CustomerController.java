@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -49,10 +50,16 @@ public class CustomerController {
     return customerService.getCustomers();
   }
 
-  @PutMapping({"/{id}"})
+  @PutMapping("/{id}")
   public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable("id") UUID id, @RequestBody CustomerDTO customer) {
 
     customerService.updateCustomer(id, customerService.saveCustomer(toEntity(customer)));
+    return ResponseEntity.noContent().build();
+  }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity deleteCustomer(@PathVariable("id") UUID id) {
+    customerService.deleteCustomer(id);
     return ResponseEntity.noContent().build();
   }
 

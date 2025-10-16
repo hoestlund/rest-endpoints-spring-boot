@@ -51,4 +51,5 @@ public interface CustomerService {
 
   void updateCustomer(UUID id, Customer customer);
 
+  void deleteCustomer(UUID id);
 }
