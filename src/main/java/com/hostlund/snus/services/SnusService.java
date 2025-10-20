@@ -43,4 +43,6 @@ public interface SnusService {
   List<Snus> listSnus();
 
   void deleteSnusById(UUID id);
+
+    void patchSnus(UUID id, Snus snus);
 }

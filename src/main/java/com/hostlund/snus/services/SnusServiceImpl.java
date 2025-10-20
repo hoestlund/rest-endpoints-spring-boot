@@ -83,7 +83,31 @@ public class SnusServiceImpl implements SnusService {
     snusMap.remove(id);
   }
 
-  @Override
+    @Override
+    public void patchSnus(UUID id, Snus snus) {
+    Snus existingSnus = snusMap.get(id);
+
+        if(snus.getName() != null) {
+          existingSnus.setName(snus.getName());
+        }
+        if(snus.getDescription() != null) {
+          existingSnus.setDescription(snus.getDescription());
+        }
+        if(snus.getFlavour() != null) {
+          existingSnus.setFlavour(snus.getFlavour());
+        }
+        if(snus.getPrice() != null) {
+          existingSnus.setPrice(snus.getPrice());
+        }
+        if(snus.getManufacturer() != null) {
+          existingSnus.setManufacturer(snus.getManufacturer());
+        }
+        if(snus.getNicotineMilligramsPerGram() != null) {
+          existingSnus.setNicotineMilligramsPerGram(snus.getNicotineMilligramsPerGram());
+        }
+    }
+
+    @Override
   public Snus getSnusById(UUID id) {
     return snusMap.get(id);
   }
