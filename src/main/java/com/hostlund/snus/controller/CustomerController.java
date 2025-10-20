@@ -13,6 +13,7 @@ import java.util.UUID;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -60,6 +61,12 @@ public class CustomerController {
   @DeleteMapping("/{id}")
   public ResponseEntity deleteCustomer(@PathVariable("id") UUID id) {
     customerService.deleteCustomer(id);
+    return ResponseEntity.noContent().build();
+  }
+
+  @PatchMapping("/{id}")
+  public ResponseEntity<CustomerDTO> patchCustomer(@PathVariable("id") UUID id, @RequestBody CustomerDTO customer) {
+    customerService.patchCustomer(id,toEntity(customer));
     return ResponseEntity.noContent().build();
   }
 

@@ -77,5 +77,23 @@ public class CustomerServiceImpl implements CustomerService {
     customerMap.remove(id);
   }
 
+    @Override
+    public void patchCustomer(UUID id, Customer entity) {
+        Customer existingCustomer = customerMap.get(id);
+
+        if(entity.getFirstName() != null) {
+          existingCustomer.setFirstName(entity.getFirstName());
+        }
+        if(entity.getLastName() != null) {
+          existingCustomer.setLastName(entity.getLastName());
+        }
+        if(entity.getEmail() != null) {
+          existingCustomer.setEmail(entity.getEmail());
+        }
+        if(entity.getAddress() != null) {
+          existingCustomer.setAddress(entity.getAddress());
+        }
+    }
+
 
 }
