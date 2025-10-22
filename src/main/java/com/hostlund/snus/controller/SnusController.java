@@ -86,9 +86,6 @@ public class SnusController {
         return ResponseEntity.noContent().build();
     }
 
-    @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity handleNotFoundException() {
-        return ResponseEntity.notFound().build();
-    }
+
 
 }
