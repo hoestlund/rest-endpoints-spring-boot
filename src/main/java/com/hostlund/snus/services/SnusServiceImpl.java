@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -108,7 +109,7 @@ public class SnusServiceImpl implements SnusService {
     }
 
     @Override
-  public Snus getSnusById(UUID id) {
-    return snusMap.get(id);
+  public Optional<Snus> getSnusById(UUID id) {
+    return Optional.of(snusMap.get(id));
   }
 }

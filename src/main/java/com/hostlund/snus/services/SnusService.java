@@ -4,6 +4,7 @@ import com.hostlund.snus.dto.SnusDTO;
 import com.hostlund.snus.model.Snus;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface SnusService {
@@ -38,7 +39,7 @@ public interface SnusService {
 
   Snus saveSnus(Snus snus);
 
-  Snus getSnusById(UUID id);
+  Optional<Snus> getSnusById(UUID id);
 
   List<Snus> listSnus();
 

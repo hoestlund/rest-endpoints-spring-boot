@@ -45,11 +45,7 @@ public class SnusController {
 
     @GetMapping(value = "/{id}")
     public Snus getSnusById(@PathVariable("id") UUID id) {
-        Snus result =  snusService.getSnusById(id);
-        if (result == null) {
-            throw new NotFoundException();
-        }
-        return result;
+        return  snusService.getSnusById(id).orElseThrow(NotFoundException::new);
     }
 
     @GetMapping
