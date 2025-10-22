@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,7 +47,7 @@ public class SnusController {
     public Snus getSnusById(@PathVariable("id") UUID id) {
         Snus result =  snusService.getSnusById(id);
         if (result == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Snus not found");
+            throw new NotFoundException();
         }
         return result;
     }
@@ -83,6 +84,11 @@ public class SnusController {
 
         snusService.patchSnus(id, DTOToSnus(snus));
         return ResponseEntity.noContent().build();
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity handleNotFoundException() {
+        return ResponseEntity.notFound().build();
     }
 
 }
