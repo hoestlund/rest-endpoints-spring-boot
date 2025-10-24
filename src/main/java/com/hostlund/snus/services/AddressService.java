@@ -11,7 +11,7 @@ public interface AddressService {
       return null;
     }
 
-    return new AddressDTO(address.getHouseNumber(), address.getFirstLine(), address.getSecondLine(),
+    return new AddressDTO( address.getHouseNumber(), address.getFirstLine(), address.getSecondLine(),
         address.getCity(), address.getState(), address.getPostalCode(), address.getCountry());
   }
 
@@ -19,7 +19,7 @@ public interface AddressService {
     if (addressDTO == null) {
       return null;
     }
-    return Address.builder().id(UUID.randomUUID()).houseNumber(addressDTO.houseNumber()).firstLine(
+    return Address.builder().houseNumber(addressDTO.houseNumber()).firstLine(
         addressDTO.firstLine()).secondLine(addressDTO.secondLine()).city(addressDTO.city()).state(
         addressDTO.state()).postalCode(addressDTO.postalCode()).country(addressDTO.country()).build();
   }

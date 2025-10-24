@@ -13,7 +13,7 @@ public interface SnusService {
     if (snus == null) {
       throw new IllegalArgumentException("snus cannot be null");
     }
-    return new SnusDTO(snus.getVersion(), snus.getName(), snus.getDescription(),
+    return new SnusDTO(snus.getId(), snus.getVersion(), snus.getName(), snus.getDescription(),
         snus.getFlavour(), snus.getPrice(), snus.getManufacturer(),
         snus.getNicotineMilligramsPerGram());
   }
