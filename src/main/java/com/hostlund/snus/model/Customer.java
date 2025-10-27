@@ -24,6 +24,7 @@ import org.hibernate.id.UUIDGenerator;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class Customer {
 
     @Id

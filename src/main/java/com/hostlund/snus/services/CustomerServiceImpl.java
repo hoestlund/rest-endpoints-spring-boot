@@ -1,98 +1,72 @@
 package com.hostlund.snus.services;
 
+import com.hostlund.snus.controller.NotFoundException;
 import com.hostlund.snus.model.Address;
 import com.hostlund.snus.model.Customer;
+import com.hostlund.snus.repositories.CustomerRepository;
 import com.neovisionaries.i18n.CountryCode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
 
-  private final Map<UUID,Customer> customerMap;
-
-  public CustomerServiceImpl() {
-    this.customerMap = new HashMap<>();
-
-    Customer customer_1 = Customer.builder()
-        .id(UUID.randomUUID())
-        .firstName("Laila")
-        .lastName("Ross")
-        .email("laila.ross@gmail.com")
-        .address(Address.builder()
-            .firstLine("Puttbusser Str")
-            .houseNumber(8)
-            .city("Berlin")
-            .country(CountryCode.DE)
-            .build())
-        .build();
-
-    Customer customer_2 = Customer.builder()
-        .id(UUID.randomUUID())
-        .firstName("Jeremy")
-        .lastName("Walton")
-        .email("jwally@gmail.com")
-        .address(Address.builder()
-            .firstLine("Högsbogatan")
-            .houseNumber(23)
-            .city("Gothenburg")
-            .country(CountryCode.SE)
-            .build())
-        .build();
-
-    customerMap.put(customer_1.getId(),customer_1);
-    customerMap.put(customer_2.getId(),customer_2);
-  }
+    private final CustomerRepository customerRepository;
 
   @Override
   public Customer getCustomer(UUID id) {
-    return customerMap.get(id);
+    return customerRepository.findCustomerById(id);
   }
 
   @Override
   public List<Customer> getCustomers() {
-    return new ArrayList<>(customerMap.values());
+    return customerRepository.findAll();
   }
 
   @Override
   public Customer saveCustomer(Customer customer) {
-    customerMap.put(customer.getId(),customer);
-    return customer;
+    return customerRepository.save(customer);
   }
 
     @Override
     public void updateCustomer(UUID id, Customer customer) {
-        if(!customerMap.containsKey(id)){
-          throw new IllegalArgumentException("Customer with id " + id + " does not exist");
-        }
-        customerMap.put(id,customer);
+      if(!customerRepository.existsById(id)){
+          throw new NotFoundException();
+      }
+      customer.setId(id);
+      customerRepository.save(customer);
     }
 
   @Override
   public void deleteCustomer(UUID id) {
-    customerMap.remove(id);
+      customerRepository.deleteById(id);
   }
 
     @Override
-    public void patchCustomer(UUID id, Customer entity) {
-        Customer existingCustomer = customerMap.get(id);
+    public void patchCustomer(UUID id, Customer customer) {
+        Customer existingCustomer = customerRepository.findCustomerById(id);
 
-        if(entity.getFirstName() != null) {
-          existingCustomer.setFirstName(entity.getFirstName());
+        if(customer.getFirstName() != null) {
+          existingCustomer.setFirstName(customer.getFirstName());
         }
-        if(entity.getLastName() != null) {
-          existingCustomer.setLastName(entity.getLastName());
+        if(customer.getLastName() != null) {
+          existingCustomer.setLastName(customer.getLastName());
         }
-        if(entity.getEmail() != null) {
-          existingCustomer.setEmail(entity.getEmail());
+        if(customer.getEmail() != null) {
+          existingCustomer.setEmail(customer.getEmail());
         }
-        if(entity.getAddress() != null) {
-          existingCustomer.setAddress(entity.getAddress());
+        if(customer.getAddress() != null) {
+          existingCustomer.setAddress(customer.getAddress());
         }
+        this.saveCustomer(existingCustomer);
     }
 
 
