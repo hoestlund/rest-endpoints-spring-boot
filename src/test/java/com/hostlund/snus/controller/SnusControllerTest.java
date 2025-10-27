@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.hamcrest.core.Is.is;
 
+import com.hostlund.snus.mappers.SnusMapper;
 import com.hostlund.snus.model.Snus;
 import com.hostlund.snus.services.SnusService;
 import java.util.List;
@@ -26,6 +27,9 @@ class SnusControllerTest {
 
     @MockitoBean
     SnusService snusService;
+
+    @MockitoBean
+    SnusMapper snusMapper;
 
     @Test
     void getSnusById() throws Exception {
