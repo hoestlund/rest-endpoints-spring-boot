@@ -1,6 +1,8 @@
 package com.hostlund.snus.services;
 
 import com.hostlund.snus.controller.NotFoundException;
+import com.hostlund.snus.dto.SnusDTO;
+import com.hostlund.snus.mappers.SnusMapper;
 import com.hostlund.snus.model.Snus;
 import com.hostlund.snus.repositories.SnusRepository;
 import java.util.List;
@@ -19,24 +21,26 @@ import org.springframework.web.server.ResponseStatusException;
 public class SnusServiceImpl implements SnusService {
 
     private final SnusRepository snusRepository;
+    private final SnusMapper snusMapper;
+
 
     @Override
-    public void updateSnus(UUID id, Snus snus) {
+    public void updateSnus(UUID id, SnusDTO snus) {
         if (!snusRepository.existsById(id)) {
             throw new NotFoundException();
         }
-        snus.setId(id);
-        snusRepository.save(snus);
+        snusRepository.save(snusMapper.DTOToSnus(snus));
     }
 
     @Override
-    public Snus saveSnus(Snus snus) {
-        return snusRepository.save(snus);
+    public SnusDTO saveSnus(SnusDTO snus) {
+       snusRepository.save(snusMapper.DTOToSnus(snus));
+       return snus;
     }
 
     @Override
-    public List<Snus> listSnus() {
-        return snusRepository.findAll();
+    public List<SnusDTO> listSnus() {
+        return snusRepository.findAll().stream().map(snusMapper::snusToDTO).toList();
     }
 
     @Override
@@ -45,32 +49,32 @@ public class SnusServiceImpl implements SnusService {
     }
 
     @Override
-    public void patchSnus(UUID id, Snus snus) {
+    public void patchSnus(UUID id, SnusDTO snus) {
         Snus existingSnus = snusRepository.getReferenceById(id);
 
-        if (snus.getName() != null) {
-            existingSnus.setName(snus.getName());
+        if (snus.name()!= null) {
+            existingSnus.setName(snus.name());
         }
-        if (snus.getDescription() != null) {
-            existingSnus.setDescription(snus.getDescription());
+        if (snus.description() != null) {
+            existingSnus.setDescription(snus.description());
         }
-        if (snus.getFlavour() != null) {
-            existingSnus.setFlavour(snus.getFlavour());
+        if (snus.flavour() != null) {
+            existingSnus.setFlavour(snus.flavour());
         }
-        if (snus.getPrice() != null) {
-            existingSnus.setPrice(snus.getPrice());
+        if (snus.price() != null) {
+            existingSnus.setPrice(snus.price());
         }
-        if (snus.getManufacturer() != null) {
-            existingSnus.setManufacturer(snus.getManufacturer());
+        if (snus.manufacturer() != null) {
+            existingSnus.setManufacturer(snus.manufacturer());
         }
-        if (snus.getNicotineMilligramsPerGram() != null) {
-            existingSnus.setNicotineMilligramsPerGram(snus.getNicotineMilligramsPerGram());
+        if (snus.nicotineMilligramsPerGram() != null) {
+            existingSnus.setNicotineMilligramsPerGram(snus.nicotineMilligramsPerGram());
         }
-        this.saveSnus(existingSnus);
+        snusRepository.save(existingSnus);
     }
 
     @Override
-    public Optional<Snus> getSnusById(UUID id) {
-        return Optional.of(snusRepository.getReferenceById(id));
+    public Optional<SnusDTO> getSnusById(UUID id) {
+        return Optional.of(snusMapper.snusToDTO(snusRepository.getReferenceById(id)));
     }
 }

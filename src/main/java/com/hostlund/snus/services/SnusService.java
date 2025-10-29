@@ -9,15 +9,15 @@ import java.util.UUID;
 
 public interface SnusService {
 
-  void updateSnus(UUID id, Snus snus);
+  void updateSnus(UUID id, SnusDTO snus);
 
-  Snus saveSnus(Snus snus);
+  SnusDTO saveSnus(SnusDTO snus);
 
-  Optional<Snus> getSnusById(UUID id);
+  Optional<SnusDTO> getSnusById(UUID id);
 
-  List<Snus> listSnus();
+  List<SnusDTO> listSnus();
 
   void deleteSnusById(UUID id);
 
-    void patchSnus(UUID id, Snus snus);
+    void patchSnus(UUID id, SnusDTO snus);
 }

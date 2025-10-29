@@ -35,28 +35,27 @@ public class SnusController {
     @PostMapping
     public ResponseEntity<SnusDTO> handlePost(@Valid @RequestBody SnusDTO snus,
         UriComponentsBuilder uriBuilder) {
-        Snus savedSnus = snusService.saveSnus(snusMapper.DTOToSnus(snus));
+        SnusDTO savedSnus = snusService.saveSnus(snus);
         URI location = uriBuilder.path("api/v1/snus/{id}")
-            .buildAndExpand(savedSnus.getId())
+            .buildAndExpand(savedSnus.id())
             .toUri();
         return ResponseEntity.created(location).build();
     }
 
     @GetMapping(value = "/{id}")
-    public Snus getSnusById(@PathVariable("id") UUID id) {
+    public SnusDTO getSnusById(@PathVariable("id") UUID id) {
         return snusService.getSnusById(id).orElseThrow(NotFoundException::new);
     }
 
     @GetMapping
-    public List<Snus> getSnus() {
+    public List<SnusDTO> getSnus() {
         return snusService.listSnus();
     }
 
     @PutMapping(value = "/{id}")
     public ResponseEntity updateSnus(@PathVariable UUID id, @RequestBody @NotNull SnusDTO snus) {
         try {
-            //Change the update fields, version etc.
-            snusService.updateSnus(id, snusMapper.DTOToSnus(snus));
+            snusService.updateSnus(id, snus);
         } catch (ResponseStatusException e) {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         }
@@ -77,7 +76,7 @@ public class SnusController {
     @PatchMapping(value = "/{id}")
     public ResponseEntity patchSnus(@PathVariable UUID id, @RequestBody @NotNull SnusDTO snus) {
 
-        snusService.patchSnus(id, snusMapper.DTOToSnus(snus));
+        snusService.patchSnus(id, snus);
         return ResponseEntity.noContent().build();
     }
 

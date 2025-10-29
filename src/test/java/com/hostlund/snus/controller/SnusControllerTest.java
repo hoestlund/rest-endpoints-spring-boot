@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.hamcrest.core.Is.is;
 
+import com.hostlund.snus.dto.SnusDTO;
 import com.hostlund.snus.mappers.SnusMapper;
 import com.hostlund.snus.model.Snus;
 import com.hostlund.snus.services.SnusService;
@@ -40,10 +41,10 @@ class SnusControllerTest {
     @Test
     void getSnus() throws Exception {
         // Stub for the list
-        List<Snus> testSnusList = List.of(
-            Snus.builder().id(UUID.randomUUID()).name("Pine").build(),
-            Snus.builder().id(UUID.randomUUID()).name("Apres N°7 Very Berry").build(),
-            Snus.builder().id(UUID.randomUUID()).name("Apres N°6 Appletini").build()
+        List<SnusDTO> testSnusList = List.of(
+            SnusDTO.builder().id(UUID.randomUUID()).name("Pine").build(),
+            SnusDTO.builder().id(UUID.randomUUID()).name("Apres N°7 Very Berry").build(),
+            SnusDTO.builder().id(UUID.randomUUID()).name("Apres N°6 Appletini").build()
         );
         when(snusService.listSnus()).thenReturn(testSnusList);
 
