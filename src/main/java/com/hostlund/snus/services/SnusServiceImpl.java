@@ -5,21 +5,16 @@ import com.hostlund.snus.dto.SnusDTO;
 import com.hostlund.snus.mappers.SnusMapper;
 import com.hostlund.snus.model.Snus;
 import com.hostlund.snus.repositories.SnusRepository;
-import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.weaver.ast.Not;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 @Slf4j
 @Service
 @AllArgsConstructor
-@Transactional
 public class SnusServiceImpl implements SnusService {
 
     private final SnusRepository snusRepository;
@@ -36,8 +31,8 @@ public class SnusServiceImpl implements SnusService {
 
     @Override
     public SnusDTO saveSnus(SnusDTO snus) {
-       snusRepository.save(snusMapper.DTOToSnus(snus));
-       return snus;
+        snusRepository.save(snusMapper.DTOToSnus(snus));
+        return snus;
     }
 
     @Override
@@ -54,7 +49,7 @@ public class SnusServiceImpl implements SnusService {
     public void patchSnus(UUID id, SnusDTO snus) {
         Snus existingSnus = snusRepository.getReferenceById(id);
 
-        if (snus.name()!= null) {
+        if (snus.name() != null) {
             existingSnus.setName(snus.name());
         }
         if (snus.description() != null) {
