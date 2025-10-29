@@ -9,15 +9,15 @@ import java.util.UUID;
 
 public interface CustomerService {
 
-    Customer getCustomer(UUID id);
+    CustomerDTO getCustomer(UUID id);
 
-    List<Customer> getCustomers();
+    List<CustomerDTO> getCustomers();
 
-    Customer saveCustomer(Customer customer);
+    CustomerDTO saveCustomer(CustomerDTO customer);
 
-    void updateCustomer(UUID id, Customer customer);
+    void updateCustomer(UUID id, CustomerDTO customer);
 
     void deleteCustomer(UUID id);
 
-    void patchCustomer(UUID id, Customer entity);
+    void patchCustomer(UUID id, CustomerDTO customer);
 }

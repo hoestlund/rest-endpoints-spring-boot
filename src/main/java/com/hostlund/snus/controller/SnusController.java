@@ -1,8 +1,6 @@
 package com.hostlund.snus.controller;
 
 import com.hostlund.snus.dto.SnusDTO;
-import com.hostlund.snus.mappers.SnusMapper;
-import com.hostlund.snus.model.Snus;
 import com.hostlund.snus.services.SnusService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -30,7 +28,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class SnusController {
 
     private final SnusService snusService;
-    private final SnusMapper snusMapper;
 
     @PostMapping
     public ResponseEntity<SnusDTO> handlePost(@Valid @RequestBody SnusDTO snus,

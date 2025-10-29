@@ -31,21 +31,20 @@ public class CustomerController {
     @PostMapping
     public ResponseEntity<CustomerDTO> handlePost(@RequestBody CustomerDTO customer,
         UriComponentsBuilder uriBuilder) {
-        Customer savedCustomer = customerService.saveCustomer(
-            customerMapper.DTOToCustomer(customer));
+        CustomerDTO savedCustomer = customerService.saveCustomer(customer);
         URI location = uriBuilder.path("api/v1/customer/{id}")
-            .buildAndExpand(savedCustomer.getId())
+            .buildAndExpand(savedCustomer.id())
             .toUri();
         return ResponseEntity.created(location).build();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Customer getCustomerById(@PathVariable("id") UUID id) {
+    public CustomerDTO getCustomerById(@PathVariable("id") UUID id) {
         return customerService.getCustomer(id);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Customer> getCustomers() {
+    public List<CustomerDTO> getCustomers() {
         return customerService.getCustomers();
     }
 
@@ -54,7 +53,7 @@ public class CustomerController {
         @RequestBody CustomerDTO customer) {
 
         customerService.updateCustomer(id,
-            customerService.saveCustomer(customerMapper.DTOToCustomer(customer)));
+            customerService.saveCustomer(customer));
         return ResponseEntity.noContent().build();
     }
 
@@ -67,7 +66,7 @@ public class CustomerController {
     @PatchMapping("/{id}")
     public ResponseEntity<CustomerDTO> patchCustomer(@PathVariable("id") UUID id,
         @RequestBody CustomerDTO customer) {
-        customerService.patchCustomer(id, customerMapper.DTOToCustomer(customer));
+        customerService.patchCustomer(id, customer);
         return ResponseEntity.noContent().build();
     }
 
