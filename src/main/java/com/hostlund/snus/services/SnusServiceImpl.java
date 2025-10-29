@@ -5,6 +5,7 @@ import com.hostlund.snus.dto.SnusDTO;
 import com.hostlund.snus.mappers.SnusMapper;
 import com.hostlund.snus.model.Snus;
 import com.hostlund.snus.repositories.SnusRepository;
+import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -18,6 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 @Slf4j
 @Service
 @AllArgsConstructor
+@Transactional
 public class SnusServiceImpl implements SnusService {
 
     private final SnusRepository snusRepository;
@@ -75,6 +77,6 @@ public class SnusServiceImpl implements SnusService {
 
     @Override
     public Optional<SnusDTO> getSnusById(UUID id) {
-        return Optional.of(snusMapper.snusToDTO(snusRepository.getReferenceById(id)));
+        return Optional.ofNullable(snusMapper.snusToDTO(snusRepository.findById(id).orElse(null)));
     }
 }
